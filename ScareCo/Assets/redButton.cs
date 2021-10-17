@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class redButton : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -9,6 +9,7 @@ public class redButton : MonoBehaviour
 
     public GameObject transitionWall;
     public GameObject audioWall;
+    public GameObject textHUD;
 
     void Start()
     {
@@ -31,8 +32,11 @@ public class redButton : MonoBehaviour
 
         if(other.gameObject.tag == "leftController" || other.gameObject.tag == "rightController"){
                transitionWall.GetComponent<Animator>().Play("transitionWall");
+               audioWall.GetComponent<AudioSource>().maxDistance = 22.4f;
+                TextMeshPro textmeshPro = textHUD.GetComponent<TextMeshPro>();
+                textmeshPro.SetText("Light the furnace Reward : Room lights on, shield" );
                Invoke("IdleAnimation", 10.0f);
-              
+           
             //  bigCube[0].GetComponent<MeshRenderer>().enabled = true;
               
 
@@ -43,8 +47,9 @@ public class redButton : MonoBehaviour
     }
 
     private void IdleAnimation(){
+         audioWall.GetComponent<AudioSource>().maxDistance = 5.4f;
          transitionWall.GetComponent<Animator>().Play("Idle");
-         audioWall.GetComponent<AudioSource>().maxDistance = 17.4f;
+        
     }
 }
 

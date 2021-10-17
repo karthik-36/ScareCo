@@ -14,8 +14,6 @@ public class switchSimulation : MonoBehaviour
 
     public GameObject floor;
 
-    public GameObject walls;
-
     public GameObject Room2;
 
     public GameObject[] toDisableGame;
@@ -42,15 +40,19 @@ public class switchSimulation : MonoBehaviour
             other.gameObject.name);
         if (other.gameObject.name == "CharacterController")
         {
+
+              gameObject.GetComponent<AudioSource>().maxDistance = 7.4f;
             Debug.Log("hit hiT hit");
             if (state == "office")
             {
-                RenderSettings.ambientIntensity = 1.0f;
+                state = "upsideDown";
+                RenderSettings.ambientIntensity = 0.5f;
                 floor.GetComponent<MeshRenderer>().material = Material1;
             }
             else
             {
-                  RenderSettings.ambientIntensity = 0.2f;
+                  state = "office";
+                  RenderSettings.ambientIntensity = 1.0f;
                 floor.GetComponent<MeshRenderer>().material = MaterialOriginal;
             }
 
