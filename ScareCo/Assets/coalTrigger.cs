@@ -21,7 +21,7 @@ public class coalTrigger : MonoBehaviour
         if (other.gameObject.name == "torchTrigger")
         {
             fire.active = true;
-            RenderSettings.ambientIntensity = 2.7f;        
+            RenderSettings.ambientIntensity = 1.7f;        
         }
     }
 }

@@ -24,7 +24,7 @@ public class objective2 : MonoBehaviour
 
         if(other.gameObject.tag == "leftController" || other.gameObject.tag == "rightController"){
             TextMeshPro textmeshPro = textHUD.GetComponent<TextMeshPro>();
-            textmeshPro.SetText("Find a way to defeat the ranged monster, Reward : shotgun");
+            textmeshPro.SetText("Find a way to defeat the ranged monster. Reward : shotgun");
         }
 
     }

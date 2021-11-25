@@ -9,6 +9,7 @@ public class chase : MonoBehaviour
     public Animator anim;
 
     bool isDeadHere;
+    float speed;
 
     AudioSource m_MyAudioSource;
 
@@ -20,7 +21,9 @@ public class chase : MonoBehaviour
         anim.SetBool("isRunning", false);
         anim.SetBool("isAttacking", false);
         anim.SetBool("isDead", false);
+        anim.SetBool("isStun", false);
         isDeadHere = false;
+        speed = 1.4f;
 
         m_MyAudioSource = GetComponent<AudioSource>();
     }
@@ -45,24 +48,28 @@ public class chase : MonoBehaviour
                 anim.SetBool("isIdle", true);
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isAttacking", false);
-           
+                anim.SetBool("isStun", false);
+                anim.SetBool("isDead", false);
             }
             else
             {
                 if (direction.magnitude > 1.5)
                 {
-                    this.transform.Translate(0.0f, 0.0f, 1.4f * Time.deltaTime);
+                    this.transform.Translate(0.0f, 0.0f, speed * Time.deltaTime);
+                    anim.SetBool("isDead", false);
+                    anim.SetBool("isStun", false);
                     anim.SetBool("isRunning", true);
                     anim.SetBool("isAttacking", false);
                     anim.SetBool("isIdle", false);
-          
                 }
                 else
                 {
-              
+                    anim.SetBool("isDead", false);
+                    anim.SetBool("isStun", false);
                     anim.SetBool("isIdle", false);
                     anim.SetBool("isRunning", false);
                     anim.SetBool("isAttacking", true);
+                     
                 }
             }
         }
@@ -70,16 +77,42 @@ public class chase : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
+        
         if (other.gameObject.name == "swordCollider")
         {
             isDeadHere = true;
             m_MyAudioSource.Stop();
-               
+            speed = 0.0f;
             anim.SetBool("isDead", true);
             anim.SetBool("isRunning", false);
             anim.SetBool("isAttacking", false);
             anim.SetBool("isIdle", false);
+            anim.SetBool("isStun", false);
+        }
+        else if (other.gameObject.name == "bullet1(Clone)")
+        {
+            isDeadHere = true;
+            speed = -0.5f;
+            Debug.Log("deamon hit "  +  other.gameObject.name);
+            anim.SetBool("isDead", false);
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isIdle", false);
+            anim.SetBool("isStun", true);
+            Invoke("notDead", 0.7f);
+
+      
         }
     }
+
+     private void notDead(){
+           isDeadHere = false;
+           speed = 1.4f;
+    }
 }
+
+
+
+    
+
+   

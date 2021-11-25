@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class switchSimulation : MonoBehaviour
 {
@@ -33,38 +34,72 @@ public class switchSimulation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug
-            .Log("hit hiT hit " +
-            other.gameObject.tag +
-            "   " +
-            other.gameObject.name);
-        if (other.gameObject.name == "CharacterController")
+        if (SceneManager.GetActiveScene().name == "scenePlaySet")
         {
-
-              gameObject.GetComponent<AudioSource>().maxDistance = 7.4f;
-            Debug.Log("hit hiT hit");
-            if (state == "office")
+            Debug
+                .Log("hit hiT hit " +
+                other.gameObject.tag +
+                "   " +
+                other.gameObject.name);
+            if (other.gameObject.name == "redButton")
             {
-                state = "upsideDown";
-                RenderSettings.ambientIntensity = 0.5f;
-                floor.GetComponent<MeshRenderer>().material = Material1;
-            }
-            else
-            {
-                  state = "office";
-                  RenderSettings.ambientIntensity = 1.0f;
-                floor.GetComponent<MeshRenderer>().material = MaterialOriginal;
-            }
+                gameObject.GetComponent<AudioSource>().maxDistance = 7.4f;
+                Debug.Log("hit hiT hit");
+                if (state == "office")
+                {
+                    state = "upsideDown";
+                    RenderSettings.ambientIntensity = 0.5f;
+                    floor.GetComponent<MeshRenderer>().material = Material1;
+                }
+                else
+                {
+                    state = "office";
+                    RenderSettings.ambientIntensity = 1.0f;
+                    floor.GetComponent<MeshRenderer>().material =
+                        MaterialOriginal;
+                }
 
-            Room2.active = !Room2.active;
+                Room2.active = !Room2.active;
 
-            for (int i = 0; i < toDisableGame.Length; i = i + 1)
-            {
-                toDisableGame[i].active = !toDisableGame[i].active;
+                for (int i = 0; i < toDisableGame.Length; i = i + 1)
+                {
+                    toDisableGame[i].active = !toDisableGame[i].active;
+                }
             }
-            //  transitionWall.GetComponent<Animator>().Play("transitionWall");
-            //  Invoke("IdleAnimation", 10.0f);
-            //  bigCube[0].GetComponent<MeshRenderer>().enabled = true;
+        }
+        else
+        {
+            Debug
+                .Log("hit hiT hit " +
+                other.gameObject.tag +
+                "   " +
+                other.gameObject.name);
+
+            if (other.gameObject.name == "CharacterController")
+            {
+                gameObject.GetComponent<AudioSource>().maxDistance = 7.4f;
+                Debug.Log("hit hiT hit");
+                if (state == "office")
+                {
+                    state = "upsideDown";
+                    RenderSettings.ambientIntensity = 0.5f;
+                    floor.GetComponent<MeshRenderer>().material = Material1;
+                }
+                else
+                {
+                    state = "office";
+                    RenderSettings.ambientIntensity = 1.0f;
+                    floor.GetComponent<MeshRenderer>().material =
+                        MaterialOriginal;
+                }
+
+                Room2.active = !Room2.active;
+
+                for (int i = 0; i < toDisableGame.Length; i = i + 1)
+                {
+                    toDisableGame[i].active = !toDisableGame[i].active;
+                }
+            }
         }
     }
 }
